@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Data</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            background-image: url("{% static 'images/Usr_Vew__01.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background-image: url("{% static 'images/Usr_Vew_02.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 80%;
+            margin:20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Personal Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>S No</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>City</th>
+                    <th>Picture</th>
+                    <th>Pincode</th>
+                    <th colspan="2">
+                        <center>
+                        Actions</th>
+                        </center>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sr in gd %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ sr.name }}</td>
+                    <td>{{ sr.email }}</td>
+                    <td>{{ sr.city }}</td>
+                    <td>
+                        {% if sr.profimg %}
+                        <img src="{{ sr.profimg.url }}" alt="Profile Picture">
+                        {% else %}
+                        <img src="/static/default-profile.png" alt="Default Profile Picture">
+                        {% endif %}
+                    </td>
+                    <td>{{ sr.pincode }}</td>
+                    <td>
+                        <a href="{% url 'update' %}" class="btn">Update</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'ur_delete' %}" class="btn">Delete Account</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No user data found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

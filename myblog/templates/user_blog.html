@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Blogs</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            background-image: url("{% static 'images/Usr_Blg_001.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin:auto;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 20 14px 18px rgba(4, 4, 4, 1.1);
+            border-radius: 8px;
+        }
+
+        .card {
+            background-image: url("{% static 'images/Usr_Blg_02.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin:auto;
+            border: 1px solid #ddd;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fafafa;
+        }
+
+        .card-header {
+            background-image: url("{% static 'images/Usr_Blg_03.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin:auto;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            color: aliceblue;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .card-title {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        img {
+            max-height: 200px;
+            border-radius: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-dark {
+            background-color: #333;
+        }
+
+        .btn-warning {
+            background-color: #ff9800;
+        }
+
+        .alert {
+            padding: 15px;
+            background-color: #ffcccb;
+            color: #333;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if us %}
+                {% for blog in us %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">{{ blog.name }}</h1>
+                            <center><h2>{{ blog.namepost }}</h2></center>    
+                        </div>
+                        <br>
+                        <div class="text-center">
+                            <img src="{{ blog.imagepost.url }}" alt="Blog Image" class="img-fluid rounded">
+                        </div>
+                        
+                        <div class="card-body">
+                            <center>
+                                <h5 class="card-text">{{ blog.email }}</h5>
+                                <br>
+                            </center>
+                            <p class="card-text">{{ blog.contpost }}</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <a href="{% url 'b_update' blog.idpost %}" class="btn btn-dark">Update</a>
+                            <a href="{% url 'bl_delete' id=blog.idpost %}" class="btn btn-warning" onclick="return confirm('Are you sure you want to delete this post?');">Delete Post</a>
+                        </div>  
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert">
+                    No posts available for: {{ bl.email }}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends List</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            background-image: url("{% static 'images/Friend.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background-image: url("{% static 'images/Frd_Lst_01.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color:beige;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size:x-large;
+        }
+
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            color: #fff;
+        }
+
+        .alert-success {
+            background-color: #4CAF50;
+        }
+
+        .alert-danger {
+            background-color: #f44336;
+        }
+
+        .mb-3 {
+            color: beige;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: larger;
+        }
+
+        ul {
+            background-image: url("{% static 'images/Frd_Lst_02.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-group-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .friend-details {
+            
+            display: flex;
+            align-items: center;
+        }
+
+        .friend-details img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .details strong {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .details .text-muted {
+            font-size: 14px;
+            color: #666;
+        }
+
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #f44336;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        .text-muted {
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Friends List</h1>
+
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <div class="mb-3">
+            <h5>Total Friends: {{ friends_count }}</h5>
+        </div>
+
+        {% if friends %}
+            <ul>
+                {% for friend in friends %}
+                    <li class="list-group-item">
+                        <div class="friend-details">
+                            <img src="{{ friend.frnd_img.url }}" alt="Friend Image" width="50" height="50">
+                            <div class="details">
+                                <strong>{{ friend.frnd.name }}</strong>
+                                <span class="text-muted">{{ friend.frnd_email }}</span>
+                            </div>
+                        </div>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="friend_id" value="{{ friend.frnd_id }}">
+                            <button type="submit" name="unfollow">Unfollow</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted">No friends found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

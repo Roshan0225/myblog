@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'images/Usr_Update.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .container {
+            background-image: url("{% static 'images/Usr_Upd_02.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin:auto;
+            max-width: 600px;
+            padding: 20px;
+            /* background-color: #fff; */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color:azure;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            margin: auto;
+            color: #fff;
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 96%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color:black;
+            box-shadow: 0 0 5px black(0, 123, 255, 0.5);
+        }
+
+        .btn-primary {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color:darkcyan;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background-color:cornflowerblue;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Update User</h2>
+        <form action="{% url 'update' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ sr.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" value="{{ sr.password }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ sr.email }}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="phone" class="form-label">Phone Number:</label>
+                <input type="tel" class="form-control" id="phone" name="phone" value="{{ sr.phone }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="city" class="form-label">City:</label>
+                <input type="text" class="form-control" id="city" name="city" value="{{ sr.city }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pincode" class="form-label">Pincode:</label>
+                <input type="text" class="form-control" id="pincode" name="pincode" value="{{ sr.pincode }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="profimg" class="form-label">Profile Image:</label>
+                <input type="file" class="form-control" id="profimg" name="profimg">
+            </div>
+
+            <button type="submit" class="btn-primary">Update</button>
+        </form>
+    </div>
+</body>
+</html>

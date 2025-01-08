@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Registration</title>
+    {% load static %}
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'images/Pst_Reg_01.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            background-image: url("{% static 'images/Pst_Reg_02.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: auto;
+            width: 100%;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        input[type="file"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            background-color:darkseagreen;
+            color:black;
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color:seagreen;
+        }
+
+        /* Optional: Add custom styles for a more flexible textarea */
+        textarea {
+            overflow: hidden;
+            resize: none; /* Prevents manual resizing */
+            min-height: 150px; /* Set a minimum height */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Write Your Stories</h2>
+        <form action="{% url 'postreg' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div>
+                <label for="namepost" class="form-label">Title:</label>   
+                <input type="text" name="namepost" id="namepost" placeholder="Enter Your Title Here" required>
+            </div>
+            
+            <div>
+                <label for="email" class="form-label">Email:</label>
+                <input type="text" name="email" id="email" value="{{ mydata.email }}" readonly>
+            </div>
+            
+            <div>
+                <label for="imagepost" class="form-label">Image:</label>
+                <input type="file" name="imagepost" id="imagepost" required>
+            </div>
+
+            <div>
+                <label for="contpost" class="form-label">Content:</label>
+                <textarea name="contpost" id="contpost" placeholder="Post Your Content Here" required oninput="autoExpand(this)"></textarea>
+            </div>
+
+            <button type="submit">Post Your Story...</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to auto-expand the textarea
+        function autoExpand(field) {
+            // Reset the height to auto to shrink it when the content is deleted
+            field.style.height = 'auto';
+            // Set the height to scrollHeight to expand it based on content
+            field.style.height = (field.scrollHeight) + 'px';
+        }
+    </script>
+    
+</body>
+</html>

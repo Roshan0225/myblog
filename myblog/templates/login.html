@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    {% load static %}
+    <style>
+        /* Reset and basic styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-image: url("{% static 'images/Login_01.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: azure;
+        }
+
+        .login-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            background-image: url("{% static 'images/Login_02.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: auto;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-box h1 {
+            color:peachpuff;
+            text-align: center;
+            margin-bottom: 20px;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-display:initial;
+        }
+
+        .login-box h2 {
+            color: azure;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .eye-icon {
+            position: absolute;
+            top: 60%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 12px;
+            background-color: powderblue;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-box button:hover {
+            background-color: peachpuff;
+        }
+
+        .login-box .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-box .links a {
+            color:beige;
+            text-decoration: none;
+            margin: 0 5px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .login-box .links a:hover {
+            background-color:gray;
+            color: white;
+        }
+
+        /* Styling for the navigation link */
+        .nav-link {
+            position:absolute;
+            margin:auto;
+            top: 20px;
+            right: 20px;
+            background-color: peachpuff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: powderblue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation link -->
+    <a href="{% url '' %}" class="nav-link">Home</a>
+
+    <div class="container">
+        <div class="login-box">
+            <div class="container">
+                <h1>Dream Narrative Chronicles</h1>
+            </div>
+            <form method="POST" action="/login/">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <span class="eye-icon" id="togglePassword">
+                        👁️
+                    </span>
+                </div>
+                <button type="submit">Login</button>
+                <div class="links">
+                    <a href="{% url 'register' %}">Don't have an account? Register</a>
+                    <br><br>
+                    <a href="{% url 'forgot_password' %}" class="text-danger">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get the elements
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
+
+        // Toggle password visibility
+        togglePassword.addEventListener('click', function () {
+            // Toggle the input type between 'password' and 'text'
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+
+            // Toggle the eye icon
+            this.innerHTML = type === 'password' ? '👁️' : '🙈';
+        });
+    </script>
+</body>
+</html>

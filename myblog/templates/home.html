@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogsphere</title>
+    {% load static %} 
+    <style>
+        body {
+            background-image: url("{% static 'images/Home_01.jpg' %}"); /* Replace with your image URL */
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            color:lightgreen;
+            text-shadow: 15cm black;
+            text-decoration:double;
+        }
+        h1 {
+            text-shadow: 14px 14px 18px rgba(1, 1, 1, 1.5); /* Optional shadow for better visibility */
+            font-size: 2.9rem;
+            margin-top: 220px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .buttons {
+            margin-top: 40px;
+        }
+        .btn {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            word-spacing: 2cm;
+            text-decoration: none;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            margin: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn-primary {
+            background-color:lightgrey;
+            color:rgb(61, 40, 40);
+        }
+        .btn-primary:hover {
+            background-color:greenyellow;
+        }
+        .btn-secondary {
+            background-color:rgb(138, 180, 216);
+            color:rgb(27, 23, 23);
+        }
+        .btn-secondary:hover {
+            background-color:rgb(119, 127, 136);
+        }
+    </style>
+</head>
+<body>
+
+    
+    <div class="container">
+        <h1>Welcome to Digital Blog</h1>
+    </div>
+
+    <div class="container buttons">
+        <a href="/register/" class="btn btn-primary">Register</a>
+        <a href="/login/" class="btn btn-secondary">Login</a>
+    </div>
+
+</body>
+</html>

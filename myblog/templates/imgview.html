@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.namepost }}</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'images/Img_Vew_01.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .display-4 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .text-muted {
+            color: #6c757d;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .rounded {
+            border-radius: 10px;
+        }
+
+        .mt-4 {
+            margin-top: 20px;
+        }
+
+        .comments-section {
+            margin-top: 40px;
+        }
+
+        .mb-4 {
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .list-group {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .list-group-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .small {
+            font-size: 0.875em;
+        }
+
+        .empty-comment {
+            text-align: center;
+            color: #777;
+        }
+
+        .comment-info {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Post Section -->
+        <div class="text-center mb-5">
+            <h1 class="display-4">{{ post.namepost }}</h1>
+            <p class="text-muted"><strong>Posted On:</strong> {{ post.datepost }}</p>
+            <img src="{{ post.imagepost.url }}" alt="Post Image" class="img-fluid rounded" style="max-width: 500px; height: 400px;">
+            <p class="mt-4"><strong>Description:</strong> {{ post.contpost }}</p>
+        </div>
+        <hr>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h2 class="mb-4">Comments</h2>
+
+            <!-- Comment Form -->
+            <form method="POST" class="mb-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <textarea name="comment" class="form-control" placeholder="Add your comment..." rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Post Comment</button>
+            </form>
+
+            <!-- Comments List -->
+            <ul class="list-group">
+                {% for comment in comments %}
+                    <li class="list-group-item">
+                        <p class="comment-info">{{ comment.user.username }}:</p>
+                        <p>{{ comment.text }}</p>
+                        <p class="text-muted small">Posted on {{ comment.created_at }}</p>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item empty-comment">No comments yet. Be the first to comment!</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

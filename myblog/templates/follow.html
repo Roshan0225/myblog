@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends Details</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'images/Follow_01.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        h1 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .card {
+            background-image: url("{% static 'images/Follow_02.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: auto;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 25%;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 15px rgba(52, 166, 241, 0.2);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .card-text {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+            font-size: large;
+        }
+
+        .btn {
+            background-color: #f0ad4e;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #ec971f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Friends</h1>
+        <div class="row">
+            <!-- Loop over friend data -->
+            {% for d in dt %}
+                {% if mydata.email != d.email %}
+                    <div class="card">
+                        <img src="{{ d.profimg.url }}" alt="Profile Image" class="profile-img">
+                        <h5 class="card-title">{{ d.name }}</h5>
+                        <p class="card-text">{{ d.email }}</p>
+                        <p class="card-text">{{ d.city }}</p>
+                        <!-- Form for following a friend -->
+                        <form method="POST" action="{% url 'follow_frd' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="newfr_email" value="{{ d.email }}">
+                            <button type="submit" class="btn">Follow</button>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
